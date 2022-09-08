@@ -58,7 +58,7 @@ class ExtendedAdminRegisterForm(forms.ModelForm):
 
 
 class SiteConfigForm(forms.ModelForm):
-    site_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','aria-label':'site_name'}),error_messages={'required':'Site name is required'})
+    site_name=forms.CharField(widget=forms.TextInput(attrs={'style':'text-transform:capitalize;','class':'form-control','aria-label':'site_name'}),error_messages={'required':'Site name is required'})
     site_url=forms.URLField(widget=forms.URLInput(attrs={'style':'text-transform:lowercase;','placeholder':'eg example.com','class':'form-control','aria-label':'site_url'}),error_messages={'required':'Site url is required'})
     class Meta:
         model=SiteConstants

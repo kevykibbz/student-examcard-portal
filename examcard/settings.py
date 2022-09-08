@@ -19,7 +19,7 @@ DEBUG = False
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
-    ALLOWED_HOSTS = ['192.168.43.106','student-examcard-portal.herokuapp.com','www.student-examcard-portal.herokuapp.com',]
+    ALLOWED_HOSTS = ['localhost','127.0.0.1','192.168.43.106','student-examcard-portal.herokuapp.com','www.student-examcard-portal.herokuapp.com',]
 
 SITE_ID=2
 AUTHENTICATION_BACKENDS = [

@@ -60,7 +60,7 @@
                         </div>
                         <div class="form-group">               
                             <label for="id_site_url">Site URL</label>
-                            {{form1.site_url}}
+                            <input name="site_url" value="{{request.scheme}}://{{request.get_host}}" aria-label="site_url" placeholder="eg example.com" type="url" class="form-control"  style="text-transform:lowercase;" readonly>
                             <div class="feedback"></div>
                         </div>  
                          <div class="form-group">               

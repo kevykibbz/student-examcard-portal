@@ -12,7 +12,6 @@ from django.template.loader import get_template
 from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse,HttpResponse,HttpResponseBadRequest
 from installation.models import SiteConstants
-from django.shortcuts import redirect
 from .forms import *
 from django.core.paginator import Paginator
 from django.contrib.sites.shortcuts import get_current_site
@@ -184,30 +183,26 @@ class ProfileView(View):
         if obj == 0:
             return redirect('/installation/')
         obj=SiteConstants.objects.all()[0]
-        try:
-            user=User.objects.get(username__exact=username)
-            form=CurrentLoggedInUserProfileChangeForm(request.POST or None,instance=user)
-            eform=CurrentExtUserProfileChangeForm(request.POST or None,instance=user.extendedauthuser)
-            messages=ContactModel.objects.filter(is_read=False).order_by("-id")[:3]
-            count=ContactModel.objects.filter(is_read=False).order_by("-id").count()
-            passform=UserPasswordChangeForm()
-            profileform=ProfilePicForm()
-            data={
-                'title':f'Edit profile | {user.get_full_name()}',
-                'obj':obj,
-                'data':request.user,
-                'form':form,
-                'eform':eform,
-                'count':count,
-                'messages':messages,
-                'editor':user,
-                'passform':passform,
-                'profileform':profileform
-            }
-            return render(request,'panel/profile.html',context=data)
-        except User.DoesNotExist:
-            return render(request,'panel/404.html',{'title':'Error | Bad Request'},status=400)
- 
+        user = get_object_or_404(User,username=username)
+        form=CurrentLoggedInUserProfileChangeForm(request.POST or None,instance=user)
+        eform=CurrentExtUserProfileChangeForm(request.POST or None,instance=user.extendedauthuser)
+        messages=ContactModel.objects.filter(is_read=False).order_by("-id")[:3]
+        count=ContactModel.objects.filter(is_read=False).order_by("-id").count()
+        passform=UserPasswordChangeForm()
+        profileform=ProfilePicForm()
+        data={
+            'title':f'Edit profile | {user.get_full_name()}',
+            'obj':obj,
+            'data':request.user,
+            'form':form,
+            'eform':eform,
+            'count':count,
+            'messages':messages,
+            'editor':user,
+            'passform':passform,
+            'profileform':profileform
+        }
+        return render(request,'panel/profile.html',context=data)
     def post(self,request,username,*args ,**kwargs):
         user=User.objects.get(username__exact=username)
         form=CurrentLoggedInUserProfileChangeForm(request.POST or None,instance=user)
