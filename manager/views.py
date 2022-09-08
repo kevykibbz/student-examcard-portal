@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from .models import *
 from django.contrib.auth.models import User,Group,Permission
 from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import View
 from django.template.loader import get_template
 from django.contrib.auth import authenticate,login,logout
