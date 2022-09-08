@@ -1,0 +1,666 @@
+{% load static %}
+{% load humanize %}
+{% load initials %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="copyright" content="Legit Crew, https://www.devme.com/">
+    <title>{% if obj.site_name %} {{obj.site_name}}  {% else %} {{site_name}} {% endif %} | {{title}}</title>
+    <meta name="description" content="{{obj.description}}">
+    <meta name="author" content="{{designer_name}}">
+    <meta name="theme-color" content="{{obj.theme_color}}">
+    <meta name="msapplication-navbutton-color" content="{{obj.theme_color}}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="{{obj.theme_color}}">
+    <meta name="keywords" content="{{obj.key_words}}">
+    <meta property="og:site_name" content="{{obj.site_name}}">
+    <meta property="og:url" content="{{obj.site_url}}">
+    <meta http-equiv="Content-type" content="text/html;charset:utf-8">
+    <meta property="og:type" content="website"> 
+    <meta property="og:type" content="website"> 
+    <meta property="twitter:site" content="https://twitter.com/Kevin36285655">
+    <meta property="twitter:title" content="@Kevin36285655">
+    <meta property="twitter:image" content="https://twitter.com/Kevin36285655/photo">
+    <meta property="twitter:description" content="Life's Simple.">
+    <meta property="twitter:text:title" content="Life's Simple.">
+    <meta property="og:title" content="{{obj.site_name}} | {{title}}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:description" content="{{obj.description}}">
+    <meta property="og:image" content="{{obj.favicon.url}}">
+    <meta name="apple-mobile-web-app-title" content="{{obj.site_name}}">
+    <meta name="application-name" content="{{obj.site_name}}">
+    <meta name="msapplication-TileColor" content="{{obj.theme_color}}">
+    <meta name="msapplication-config" content="{% static 'manager/assets/images/logos/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="canonical" href="{{request.get_full_path}}" />
+    <link rel="shortcut icon" href="{{obj.favicon.url}}" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/owl.carousel/dist/css/owl.carousel.min.css' %}">
+    <link href="{% static 'panel/assets/plugins/fullcalendar/css/fullcalendar.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/chartist/css/chartist.min.css' %}">
+    <link href="{% static 'panel/assets/css/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/jsgrid/css/jsgrid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/dropify/dist/css/dropify.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/select2/css/select2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/jsgrid/css/jsgrid-theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/footable/css/footable.bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/jquery-bootgrid/dist/jquery.bootgrid.min.css' %}">
+    <link href="{% static 'panel/assets/plugins/datatables/css/jquery.dataTables.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'panel/assets/css/font-awesome.min.css' %}">
+    <link href="{% static 'panel/assets/plugins/summernote/summernote.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css' %}">
+    <link href="{% static 'panel/assets/plugins/jquery-asColorPicker/css/asColorPicker.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/custom.css' %}" />
+    <style type="text/css">
+    .btn,
+    .form-control
+    {
+        padding:1.375rem !important;
+    }
+    </style>
+</head>
+
+<body onload="load()">
+
+    <!-- preloader -->
+     <div class="placeholder">
+        <div class="overlay">
+            <div class="row">
+                <div class="col-12">
+                     <div class="loader-container">
+                       <div class="loader">
+                         <svg class="circular" viewBox="25 25 50 50">
+                           <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                         </svg>
+                       </div>
+                     </div>
+                </div>
+            </div>
+         </div>
+     </div>
+    <!-- //preloader -->
+    <div class="main-display " style="display:none">
+
+        <!--**********************************
+        Main wrapper start
+        ***********************************-->
+        <div id="main-wrapper">
+
+            <!--**********************************
+            Nav header start
+            ***********************************-->
+            <div class="nav-header">
+                <div class="brand-logo">
+                    <a href="/">
+                        <b class="logo-abbr">{{obj.site_name|initials}}</b>
+                        <span class="brand-title text-capitalize"><b>{{obj.site_name}}</b></span>
+                    </a>
+                </div>
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon" onclick="$(this).children().toggle()">
+                            <i class="fa fa-angle-left"></i>
+                            <i class="fa fa-angle-right" style="display:none"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--**********************************
+                Nav header end
+            ***********************************-->
+
+            <!--**********************************
+                Header start
+            ***********************************-->
+        <div class="header">    
+            <div class="header-content clearfix">
+                <div class="header-right">
+
+                    <ul class="clearfix">
+                        <li class="icons d-none d-md-flex">
+                            <a href="javascript:void(0)" class="window_fullscreen-x">
+                                <i class="fa fa-square"></i>
+                            </a>
+                        </li>
+                        <li class="icons">
+                            <a href="javascript:void(0)" class="">
+                                <i class="fa fa-bell"></i>
+                                <span class="badge badge-primary" style="color:#fff;"><b>3</b></span>
+                            </a>
+                            <div class="drop-down animated flipInX dropdown-notfication">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-calender"></i></span>
+                                                <div class="notification-content">
+                                                    <h5 class="notification-heading">Event Started</h5>
+                                                    <span class="notification-text">One hour ago</span> 
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i class="icon-calender"></i></span>
+                                                <div class="notification-content">
+                                                    <h5 class="notification-heading">Event Started</h5>
+                                                    <span class="notification-text">One hour ago</span> 
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <span class="mr-3 avatar-icon bg-success-lighten-2"><i class="icon-calender"></i></span>
+                                                <div class="notification-content">
+                                                    <h5 class="notification-heading">Event Started</h5>
+                                                    <span class="notification-text">One hour ago</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void()">
+                                                <span class="mr-3 avatar-icon bg-danger-lighten-2"><i class="icon-calender"></i></span>
+                                                <div class="notification-content">
+                                                    <h5 class="notification-heading">Event Started</h5>
+                                                    <span class="notification-text">One hour ago</span> 
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <a class="d-flex justify-content-between bg-primary px-4 text-light" href="javascript:void()">
+                                        <span>All Notifications</span>
+                                        <span><i class="icon-settings"></i></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="icons">
+                            <div class="user-img c-pointer-x" style="cursor:pointer;">
+                                <span class="activity active"></span>
+                                <img src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{data.extendedauthuser.profile_pic.url}}" height="40" width="40" alt="avatar">
+                            </div>
+                            <div class="drop-down dropdown-profile animated flipInX">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li><a href="{% url 'profile' username=data.username %}"><i class="fa fa-user"></i> <span>My Profile</span></a>
+                                        </li>
+                                        </li>
+                                        <li><a href="{% url 'lock screen' username=data.username %}"><i class="fa fa-lock"></i> <span>Lock Screen</span></a>
+                                        <li><a href="{% url 'logout' %}"><i class="fa fa-key"></i> <span>Logout</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">           
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Dashboard</li>
+                    <li>
+                        <a class="has-arrow" href="/dashboard" aria-expanded="false">
+                            <i class="fa fa-home"></i><span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-bars"></i><span class="nav-text">Layouts</span></a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a href="javascript:void(0);" class="fixedHeader">Fixed Header</a>
+                                <input type="checkbox" class="h1" hidden/>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-status="false" class="fixedSideBar">Fixed Sidebar</a>
+                                <input type="checkbox" class="h2" hidden/>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-status="false" class="rtller">RTL</a>
+                                <input type="checkbox" class="h3" hidden/>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-status="false" class="dark">Dark</a>
+                                <input type="checkbox" class="h4" hidden/>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" data-status="false" class="light">Light</a>
+                                <input type="checkbox" class="h5" hidden/>
+                            </li>
+                        </ul>
+                    </li> 
+                    {% if data.is_superuser %}
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-home"></i><span class="nav-text">Site Settings</span>
+                        </a>
+                         <ul aria-expanded="false">
+                            <li>
+                                <a href="{% url 'general' %}">General Site Settings</a>
+                            </li> 
+                        </ul>
+                    </li> 
+                    {% endif %}
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-mobile"></i><span class="nav-text">Apps</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'profile' username=data.username %}">Profile</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            {% block body %}
+            {% endblock %}
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+        
+        
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>
+                    &copy;{% now 'Y' %} {{obj.site_name}}. All Rights Reserved.Designed and coded by <a target="_blank" href="{{designer_link}}">{{designer_name}}</a>
+                </p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        
+        <!--**********************************
+            Right sidebar start
+        ***********************************-->
+        <div class="sidebar-right">
+            <a class="sidebar-right-trigger gradient-5-x" href="javascript:void(0)">
+                <span><i class="fa fa-cog fa-spin"></i></span>
+            </a>
+            <div class="sidebar-right-inner">
+                <div class="admin-settings">
+                    <h4>Pick your style</h4>
+                    <div>
+                        <p>Background</p>
+                        <select class="form-control" name="theme_version" id="theme_version">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Layout</p>
+                        <select class="form-control" name="theme_layout" id="theme_layout">
+                            <option value="vertical">Vertical</option>
+                            <option value="horizontal">Horizontal</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Sidebar</p>
+                        <select class="form-control" name="sidebar_style" id="sidebar_style">
+                            <option value="full">Full</option>
+                            <option value="mini">Mini</option>
+                            <option value="compact">Compact</option>
+                            <option value="overlay">Overlay</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Sidebar position</p>
+                        <select class="form-control" name="sidebar_position" id="sidebar_position">
+                            <option value="static">Static</option>
+                            <option value="fixed">Fixed</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Header position</p>
+                        <select class="form-control" name="header_position" id="header_position">
+                            <option value="static">Static</option>
+                            <option value="fixed">Fixed</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Container</p>
+                        <select class="form-control" name="container_layout" id="container_layout">
+                            <option value="wide">Wide</option>
+                            <option value="boxed">Boxed</option>
+                            <option value="wide-boxed">Wide Boxed</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Direction</p>
+                        <select class="form-control" name="theme_direction" id="theme_direction">
+                            <option value="ltr">LTR</option>
+                            <option value="rtl">RTL</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>Navigation Header</p>
+                        <div>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_1" class="filled-in chk-col-primary" id="nav_header_bg_1">
+                                <label for="nav_header_bg_1"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_2" class="filled-in chk-col-primary" id="nav_header_bg_2">
+                                <label for="nav_header_bg_2"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_3" class="filled-in chk-col-primary" id="nav_header_bg_3">
+                                <label for="nav_header_bg_3"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_4" class="filled-in chk-col-primary" id="nav_header_bg_4">
+                                <label for="nav_header_bg_4"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_5" class="filled-in chk-col-primary" id="nav_header_bg_5">
+                                <label for="nav_header_bg_5"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_6" class="filled-in chk-col-primary" id="nav_header_bg_6">
+                                <label for="nav_header_bg_6"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_7" class="filled-in chk-col-primary" id="nav_header_bg_7">
+                                <label for="nav_header_bg_7"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_8" class="filled-in chk-col-primary" id="nav_header_bg_8">
+                                <label for="nav_header_bg_8"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_9" class="filled-in chk-col-primary" id="nav_header_bg_9">
+                                <label for="nav_header_bg_9"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="navigation_header" value="color_10" class="filled-in chk-col-primary" id="nav_header_bg_10">
+                                <label for="nav_header_bg_10"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Header</p>
+                        <div>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_1" class="filled-in chk-col-primary" id="header_bg_1">
+                                <label for="header_bg_1"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_2" class="filled-in chk-col-primary" id="header_bg_2">
+                                <label for="header_bg_2"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_3" class="filled-in chk-col-primary" id="header_bg_3">
+                                <label for="header_bg_3"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_4" class="filled-in chk-col-primary" id="header_bg_4">
+                                <label for="header_bg_4"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_5" class="filled-in chk-col-primary" id="header_bg_5">
+                                <label for="header_bg_5"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_6" class="filled-in chk-col-primary" id="header_bg_6">
+                                <label for="header_bg_6"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_7" class="filled-in chk-col-primary" id="header_bg_7">
+                                <label for="header_bg_7"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_8" class="filled-in chk-col-primary" id="header_bg_8">
+                                <label for="header_bg_8"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_9" class="filled-in chk-col-primary" id="header_bg_9">
+                                <label for="header_bg_9"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="header_bg" value="color_10" class="filled-in chk-col-primary" id="header_bg_10">
+                                <label for="header_bg_10"></label>
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Sidebar</p>
+                        <div>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_1" class="filled-in chk-col-primary" id="sidebar_bg_1">
+                                <label for="sidebar_bg_1"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_2" class="filled-in chk-col-primary" id="sidebar_bg_2">
+                                <label for="sidebar_bg_2"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_3" class="filled-in chk-col-primary" id="sidebar_bg_3">
+                                <label for="sidebar_bg_3"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_4" class="filled-in chk-col-primary" id="sidebar_bg_4">
+                                <label for="sidebar_bg_4"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_5" class="filled-in chk-col-primary" id="sidebar_bg_5">
+                                <label for="sidebar_bg_5"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_6" class="filled-in chk-col-primary" id="sidebar_bg_6">
+                                <label for="sidebar_bg_6"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_7" class="filled-in chk-col-primary" id="sidebar_bg_7">
+                                <label for="sidebar_bg_7"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_8" class="filled-in chk-col-primary" id="sidebar_bg_8">
+                                <label for="sidebar_bg_8"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_9" class="filled-in chk-col-primary" id="sidebar_bg_9">
+                                <label for="sidebar_bg_9"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_10" class="filled-in chk-col-primary" id="sidebar_bg_10">
+                                <label for="sidebar_bg_10"></label>
+                            </span>
+                            <!-- <span>
+                                <input type="radio" name="sidebar_bg" value="color_11" class="filled-in chk-col-primary" id="sidebar_bg_11">
+                                <label for="sidebar_bg_11"></label>
+                            </span> -->
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_12" class="filled-in chk-col-primary" id="sidebar_bg_12">
+                                <label for="sidebar_bg_12"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_13" class="filled-in chk-col-primary" id="sidebar_bg_13">
+                                <label for="sidebar_bg_13"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_14" class="filled-in chk-col-primary" id="sidebar_bg_14">
+                                <label for="sidebar_bg_14"></label>
+                            </span>
+                            <span>
+                                <input type="radio" name="sidebar_bg" value="color_15" class="filled-in chk-col-primary" id="sidebar_bg_15">
+                                <label for="sidebar_bg_15"></label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Right sidebar end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+    
+    
+    <!-- Small Modal -->
+    <div class="modal fade small-model bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="mySmallModalLabel">Success</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                user added successfully
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- delete Modal -->
+    <div class="modal fade delete-model bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="mySmallModalLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+               
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- edit modal -->
+    <div class="modal fade edit-modal bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myEditModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="mySmallModalLabel">Edit Item</h5>
+                <button type="button" class="closser close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="editor modal-body position-relative">
+                    <div class="load-overlay" style="display:none">
+                        <span class="overlay-close btn-remove" title="close overlay">
+                            <i class="fa fa-close"></i>
+                        </span>
+                        <div class="overlay">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="loader-container">
+                                    <div class="loader">
+                                        <svg class="circular" viewBox="25 25 50 50">
+                                        <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                        </svg>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="target">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="{% static 'manager/assets/js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/common/common.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/custom.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/settings.js' %}"></script>
+    <script src="{% static 'panel/assets/js/quixnav.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/styleSwitcher.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/d3v3/index.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/topojson/topojson.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/datamaps/datamaps.world.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/jqueryui/js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/fullcalendar/js/fullcalendar.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/chart.js/Chart.bundle.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/select2/js/select2.full.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/plugins-init/select2-init.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/jquery-asColor/jquery-asColor.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/jquery-asGradient/jquery-asGradient.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/jquery-asColorPicker/js/jquery-asColorPicker.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/summernote/js/summernote.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/plugins-init/summernote-init.js' %}"></script>
+    <script src="{% static 'panel/assets/js/plugins-init/jquery-asColorPicker.init.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/morris/morris.min.js' %}"></script>
+    <script src="{% static  'panel/assets/plugins/dropify/dist/js/dropify.min.js' %}"></script>
+    <script src="{% static  'panel/assets/js/plugins-init/dropify-init.js' %}"></script>
+    <script src="{% static  'panel/assets/js/plugins-init/bootstrap-tagsinput-init.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/owl.carousel/dist/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/chartist/js/chartist.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/plugins-init/fullcalendar-init.js' %}"></script>
+    <script src="{% static 'panel/assets/js/dashboard/dashboard-1.js' %}"></script>
+    <script src="{% static 'manager/assets/js/custom.js' %}"></script> 
+    <script>
+        var current='';
+        $(document).on('click','.penwrapper',function()
+        {
+            var el=$(this),
+            name='';
+            if(el.parent().find('img').length)
+            {
+                name=el.parent().find('img').data('name');
+            }
+            else
+            {
+                name=el.parent().find('.content').data('name');
+                current=el;
+            }
+            $('.form-area').find("input,textarea").parent().hide();
+            $('.form-area').find("input[name='"+name+"'],textarea[name='"+name+"']").parent().show();
+            $('.target').html($('.form-area').html()).find('form').show().find("input[name='"+name+"'],textarea[name='"+name+"']").val($.trim(el.parent().find('.content').text())).addClass('editor-pallate');
+            $('.edit-modal').modal({show:true});
+        });
+        $(document).on('keyup','.editor-pallate',function()
+        {
+            current.parent().find('.content').text($(this).val());
+        });
+        $(document).ready(function()
+        {
+            $('.toast').hide();
+            $('.close-toast').click();
+        });
+    </script>  
+</body>
+</html>

@@ -1,0 +1,1 @@
+web: gunicorn examcard.wsgi --log-file -

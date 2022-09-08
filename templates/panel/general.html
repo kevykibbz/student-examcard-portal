@@ -1,0 +1,284 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/panel">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">General Site Settings</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-12">
+            <div class="card card-statistics position-relative">
+                <div class="load-overlay" style="display:none">
+                    <span class="overlay-close btn-remove" title="close overlay">
+                        <i class="fa fa-close"></i>
+                    </span>
+                    <div class="overlay">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="loader-container">
+                                <div class="loader">
+                                    <svg class="circular" viewBox="25 25 50 50">
+                                    <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title"><strong>|Site</strong> Details</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="ActiveForm" method="post" action="" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_site_name">Site Name</label>
+                            {{form1.site_name}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="selects-contant-boots">
+                            <div class="form-group bs-select-1">               
+                                <label for="id_key_words">Site Key Words</label>
+                                {{form1.key_words}}
+                                <div class="feedback"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_site_url">Site URL</label>
+                            {{form1.site_url}}
+                            <div class="feedback"></div>
+                        </div>  
+                         <div class="form-group">               
+                            <label for="id_theme_color">Upload exam card stamp</label>
+                            <div class="custom-file" style="cursor:pointer">
+                                {{form1.stamp}}
+                                <label for="customFileInput1" class="custom-file-label">Browse files</label>
+                            </div>
+                            current: <a class="text-pimary" target="_blank" href="{{obj.favicon.url}}">{{obj.favicon}}</a>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_theme_color">Site Theme Color</label>
+                            <div class="example">
+                                {{form1.theme_color}}
+                            </div>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_theme_color">Favicon</label>
+                            <div class="custom-file" style="cursor:pointer">
+                                {{form1.favicon}}
+                                <label for="customFileInput" class="custom-file-label">Browse files</label>
+                            </div>
+                            current: <a class="text-pimary" target="_blank" href="{{obj.favicon.url}}">{{obj.favicon}}</a>
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_description">Description</label>
+                            {{form1.description}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary input-rounded">Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card card-statistics position-relative">
+                <div class="load-overlay" style="display:none">
+                    <span class="overlay-close btn-remove" title="close overlay">
+                        <i class="fa fa-close"></i>
+                    </span>
+                    <div class="overlay">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="loader-container">
+                                <div class="loader">
+                                    <svg class="circular" viewBox="25 25 50 50">
+                                    <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title"><strong>|Contact</strong> information</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="ActiveForm" method="post" action="{% url 'site contact' %}" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_site_name">Site Email Address</label>
+                            {{form2.site_email}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="selects-contant-boots">
+                            <div class="form-group bs-select-1">               
+                                <label for="id_key_words">Additional Site Email Address</label>
+                                {{form2.site_email2}}
+                                <div class="feedback"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_location">Site location</label>
+                            {{form2.location}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_address">Site Address</label>
+                            {{form2.address}}
+                            <div class="feedback"></div>
+                        </div>
+
+                        <label for="id_phone">Site Phone</label>
+                        <div class="form-group">               
+                            {{form2.phone}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="text-center" style="margin-top:67px">
+                            <button type="submit" class="btn btn-primary input-rounded">Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card card-statistics position-relative">
+                <div class="load-overlay" style="display:none">
+                    <span class="overlay-close btn-remove" title="close overlay">
+                        <i class="fa fa-close"></i>
+                    </span>
+                    <div class="overlay">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="loader-container">
+                                <div class="loader">
+                                    <svg class="circular" viewBox="25 25 50 50">
+                                    <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Working Days And Hours</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="ActiveForm" method="post" action="{% url 'site working days' %}" novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_working_days"><strong>|Site</strong> Working Days</label>
+                            {{form4.working_days}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_working_hours">Site Working Hours</label>
+                            {{form4.working_hours}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary input-rounded">Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card card-statistics position-relative">
+                <div class="load-overlay" style="display:none">
+                    <span class="overlay-close btn-remove" title="close overlay">
+                        <i class="fa fa-close"></i>
+                    </span>
+                    <div class="overlay">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="loader-container">
+                                <div class="loader">
+                                    <svg class="circular" viewBox="25 25 50 50">
+                                    <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title"><strong>|Site</strong> Social Links</h4>
+                    </div>
+                </div>
+                <div class="card-body"> 
+                    <form class="ActiveForm" method="post" action="{% url 'site social links' %}"  novalidate>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_facebook">Facebook</label>
+                            {{form3.facebook}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_twitter">Twitter</label>
+                            {{form3.twitter}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_instagram">Instagram</label>
+                            {{form3.instagram}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_linkedin">Linkedin</label>
+                            {{form3.linkedin}}
+                            <div class="feedback"></div>
+                        </div>
+                         <div class="form-group">               
+                            <label for="id_whatsapp">Whatsapp</label>
+                            {{form3.whatsapp}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="form-group">               
+                            <label for="id_youtube">Youtube</label>
+                            {{form3.youtube}}
+                            <div class="feedback"></div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary input-rounded">Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

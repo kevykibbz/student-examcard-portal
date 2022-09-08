@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="copyright" content="Legit Crew, https://www.devme.com/">
+    <title>{% if obj.site_name %} {{obj.site_name}}  {% else %} {{site_name}} {% endif %} | {{title}}</title>
+    <meta name="description" content="{{obj.description}}">
+    <meta name="author" content="{{designer_name}}">
+    <meta name="theme-color" content="{{obj.theme_color}}">
+    <meta name="msapplication-navbutton-color" content="{{obj.theme_color}}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="{{obj.theme_color}}">
+    <meta name="keywords" content="{{obj.key_words}}">
+    <meta property="og:site_name" content="{{obj.site_name}}">
+    <meta property="og:url" content="{{obj.site_url}}">
+    <meta http-equiv="Content-type" content="text/html;charset:utf-8">
+    <meta property="og:type" content="website"> 
+    <meta property="og:type" content="website"> 
+    <meta property="twitter:site" content="https://twitter.com/Kevin36285655">
+    <meta property="twitter:title" content="@Kevin36285655">
+    <meta property="twitter:image" content="https://twitter.com/Kevin36285655/photo">
+    <meta property="twitter:description" content="Life's Simple.">
+    <meta property="twitter:text:title" content="Life's Simple.">
+    <meta property="og:title" content="{{obj.site_name}} | {{title}}">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:description" content="{{obj.description}}">
+    <meta property="og:image" content="{{obj.favicon.url}}">
+    <meta name="apple-mobile-web-app-title" content="{{obj.site_name}}">
+    <meta name="application-name" content="{{obj.site_name}}">
+    <meta name="msapplication-TileColor" content="{{obj.theme_color}}">
+    <meta name="msapplication-config" content="{% static 'manager/assets/images/logos/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="canonical" href="{{request.get_full_path}}" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <link rel="shortcut icon" href="{{obj.favicon.url}}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'panel/assets/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'panel/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'panel/assets/css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/custom.css' %}" />
+    <style type="text/css">
+        .reveal
+        {
+            position:absolute;
+            top:17px;
+            right:23px;
+        }
+        .btn,
+        .form-control
+        {
+            padding:1.375rem !important;
+        }
+    </style>
+</head>
+<body  onload="load()">
+    <!-- preloader -->
+     <div class="placeholder">
+        <div class="overlay">
+            <div class="row">
+                <div class="col-12">
+                     <div class="loader-container">
+                       <div class="loader">
+                         <svg class="circular" viewBox="25 25 50 50">
+                           <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                         </svg>
+                       </div>
+                     </div>
+                </div>
+            </div>
+         </div>
+     </div>
+    <!-- //preloader -->
+    <div class="main-display " style="display:none">
+        {% block body %}
+
+        {% endblock %}
+        <!-- Small Modal -->
+        <div class="modal fade small-model bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="mySmallModalLabel"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'manager/assets/js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'panel/assets/plugins/common/common.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/custom.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'panel/assets/js/settings.js' %}"></script>
+    <script src="{% static 'manager/assets/js/custom.js' %}"></script>
+    <script src="{% static 'panel/assets/js/quixnav.js' %}"></script>
+    <script>
+        $(document).ready(function()
+        {
+            $('.toast').hide();
+            $('.close-toast').click();
+        });
+    </script>
+</body>
+</html>

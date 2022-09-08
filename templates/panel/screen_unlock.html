@@ -1,0 +1,64 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block body %}
+<div class="h-100" style="margin:50px 0;">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100">
+            <div class="col-md-5">
+                <div class="form-input-content">
+                    <div class="card card-login position-relative">
+                        <div class="load-overlay" style="display:none">
+                            <span class="overlay-close btn-remove" title="close overlay">
+                                <i class="fa fa-close"></i>
+                            </span>
+                            <div class="overlay">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="loader-container">
+                                        <div class="loader">
+                                            <svg class="circular" viewBox="25 25 50 50">
+                                            <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                            </svg>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header text-center">
+                            <h3 class="text-dark mb-0">Screen Locked</h3>
+                        </div>
+                        <div class="text-center my-3">
+                                <img class="rounded-circle" src="{% static 'manager/assets/images/loader.gif' %}" data-src="{{data.extendedauthuser.profile_pic.url}}" width="80" height="80" alt="{{obj.site_name}} logo">
+                        </div>
+                        <div class="card-body">
+                            <form class="loginForm" action="{% url 'dashboard' %}" method="post" novalidate>
+                                {% csrf_token %}
+                                <div class="form-group mb-4 d-none">
+                                    <input name="username" type="text" class="form-control input-rounded bg-transparent" value="{{data.username}}" hidden>
+                                </div>
+                                <div class="form-group mb-4 position-relative">
+                                    <input name="password"type="password" class="login-password form-control input-rounded  bg-transparent" placeholder="Password">
+                                    <div class="feedback"></div>
+                                    <i class="fa fa-eye-slash reveal"></i>
+                                </div>
+                                <button class="btn-primary btn-lg btn-block border-0 input-rounded" type="submit">Unlock</button>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center border-0 pt-0">
+                            <a href="{% url 'dashboard' %}"><p class="mb-1 text-muted">Not {{data.username}}?</p></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                &copy;{% now 'Y' %} {{obj.site_name}}. All Rights Reserved.Designed and coded by <a target="_blank" href="{{designer_link}}">{{designer_name}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
