@@ -98,22 +98,22 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': 
-            {
+# DATABASES = {
+#     'default': 
+#             {
 
-                'ENGINE': 'mysql.connector.django',
-                'NAME':env('DATABASE_NAME'),
-                'USER':env('DATABASE_USER'),
-                'PASSWORD':env('DATABASE_PASSWORD'),
-                'HOST':env('DATABASE_HOST'),
-                'PORT':env('DATABASE_PORT'),
-                'OPTIONS':
-                {
-                    'autocommit':True,
-                },
-            }
-}
+#                 'ENGINE': 'mysql.connector.django',
+#                 'NAME':env('DATABASE_NAME'),
+#                 'USER':env('DATABASE_USER'),
+#                 'PASSWORD':env('DATABASE_PASSWORD'),
+#                 'HOST':env('DATABASE_HOST'),
+#                 'PORT':env('DATABASE_PORT'),
+#                 'OPTIONS':
+#                 {
+#                     'autocommit':True,
+#                 },
+#             }
+# }
 
 
 # Password validation
