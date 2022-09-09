@@ -1,0 +1,81 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'registered courses' %}">View Registered courses</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Register courses</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="content-heading">Register courses ({{count|intcomma}})</h3>
+        </div>
+        <div class="col-md-10 col-12 mx-auto">
+            <div class="card poition-relative">
+            	<div class="load-overlay" style="display:none">
+                    <span class="overlay-close btn-remove" title="close overlay">
+                        <i class="fa fa-close"></i>
+                    </span>
+                    <div class="overlay">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="loader-container">
+                                <div class="loader">
+                                    <svg class="circular" viewBox="25 25 50 50">
+                                    <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">View all {{request.GET.year}}, {{request.GET.sem}} courses </h4>
+                    <div class="table-responsive table-results">
+                       <form class="CourseForm" action="" method="post">
+                       		{% csrf_token %}
+	                       	<table class="table table-responsive-sm table-stripped table-hover">
+	                        	{% for course in courses %}
+	                            <tr id="{{course.id}}">
+	                            	<th>{{forloop.counter}}</th>
+	                            	<th>Course Code</th>
+	                            	<td>{{course.course_code}}</td>
+	                            	<th>Course Title</th>
+	                            	<td>{{course.course_title}}</td>
+	                            </tr>
+	                            {% empty %}
+	                            <tr>
+	                            	<td class="text-center">No courses found</td>
+	                            </tr>
+	                            {% endfor %}
+	                        </table>
+	                        <div class="form-group ml-3 mb-5">
+	                            <input aria-label="nominal_roll" id="checkbox1" name="nominal_roll" type="checkbox">
+	                            <label class="label-checkbox ml-2 mb-0" for="checkbox1">Sign Norminal roll</label>
+	                            <div class="feedback ml-4"></div>
+	                        </div>
+	                        <div class="text-center">
+	                            <button class="btn btn-primary input-rounded">Submit</button>
+	                        </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

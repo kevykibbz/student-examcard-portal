@@ -299,16 +299,17 @@ padding-top: 100%;
 {
     color: green;
 }
-.float-btn
+.float-btn 
 {
-    position:fixed;
-    bottom:40px;
-    right:20px;
-    width:60px;
-    height:60px;
-    border-radius:50% !important;
-    padding:10px;
-    line-height:40px;
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    z-index:99;
+    border-radius: 50% !important;
+    padding: 10px;
+    line-height:39px;
 }
 #id_phone_0
 {
@@ -320,11 +321,11 @@ padding-top: 100%;
     width:70%;
     float:right;
 }
-.phoner
+.phoner 
 {
-    position:absolute;
-    top:63px;
-    left:20px;
+    position: absolute;
+    top: 68px;
+    left: 20px;
 }
 .modal-body button
 {

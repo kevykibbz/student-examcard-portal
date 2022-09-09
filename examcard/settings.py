@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY =env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 if DEBUG:
     ALLOWED_HOSTS = []
 else:
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'installation.apps.InstallationConfig',
     'django.contrib.humanize',
     'phonenumber_field',
+    'mathfilters',
     'errors.apps.ErrorsConfig',
     'manager.apps.ManagerConfig',
     'django.contrib.sites', #social app 
@@ -97,6 +98,23 @@ DATABASES = {
     }
 }
 
+DATABASES = {
+    'default': 
+            {
+
+                'ENGINE': 'mysql.connector.django',
+                'NAME':env('DATABASE_NAME'),
+                'USER':env('DATABASE_USER'),
+                'PASSWORD':env('DATABASE_PASSWORD'),
+                'HOST':env('DATABASE_HOST'),
+                'PORT':env('DATABASE_PORT'),
+                'OPTIONS':
+                {
+                    'autocommit':True,
+                },
+            }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -125,9 +143,9 @@ AUTH_PASSWORD_VALIDATORS = [
             'min_length':2,
         },
     },
-    {
-        'NAME':'manager.validators.UpperCaseValidator',
-    },
+    #{
+    #    'NAME':'manager.validators.UpperCaseValidator',
+    #},
     {
         'NAME':'manager.validators.LowerCaseValidator',
     },

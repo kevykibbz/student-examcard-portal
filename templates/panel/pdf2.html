@@ -38,19 +38,19 @@
                 </div>
                 <h1 class="centre">MOI UNIVERSITY 
                     <p>EXAMINATION CARD</p>
-                    <p>2019/2020 ACADEMIC YEAR</p>
+                    <p>{{data.extendedauthuser.academic_year}} ACADEMIC YEAR</p>
                 </h1>
             <p></p>
             
             <div class="detail">
                 <h2>Office of the Deputy Vice Chancellor (Academic Affairs)</h2>
                 <p>AUTHORIZATION TO SIT UNIVERSITY EXAMINATION</p>
-                <h1>TED/90/18</h1>
-                <h1>MWATSUKIZI SWALEH</h1>
-                <p>Bachelor of Education (Technology Education And Computer)</p>
-                <p>STAGE: Y4S1 SEMESTER: SEM1 21/22</p>
+                <h1 style="text-transform:uppercase;">{{data.extendedauthuser.reg_no}}</h1>
+                <h1>{{data.get_full_name}}</h1>
+                <p>{{data.extendedauthuser.course_name}}</p>
+                <p>STAGE: {{latest.year}}{{latest.sem}} SEMESTER: {{latest.sem}} {{latest.academic_year}}</p>
             </div>
-            <p class="id">##73865**</p>
+            <p class="id">##{{data.extendedauthuser.exam_id}}**</p>
             <table class="table">
                 <thead>
                     <tr>
@@ -63,27 +63,14 @@
                 <tbody>
                     <tr>
                         <th scope="row">
-                            <P>BCT 411E</P>
-                            <P>BCT 421E</P>
-                            <P>BCT 431E</P>
-                           <P>EDU 499</P>
-                           <P>EMP 410</P>
-                           <P>EMP 411</P>
-                           <P>TEC 400</P>
-                           <P>TEC 401</P>
-                           <P>TEC 490</P>
+                        {% for exam1 in exams %}
+                            <p>{{exam1.course_code}}</p>
+                        {% endfor %}
                         </th>
                         <td>
-                            <P>Architectural Drawing</P>
-                            <p>Structures II</p>
-                            <P>Quantity Survey II</P>
-                            <p>Research Project</p>
-                            <p>Environmental Education</p>
-                            <p>Educational Administration & Management</p>
-                            <p>Technology Trip II(Week 1)</p>
-                            <p>Micro Processing System</p>
-                            <p>Project (Final Year)</p>
-
+                            {% for exam2 in exams %}
+                            <p>{{exam2.course_title}}</p>
+                            {% endfor %}
                         </td>
                        
                     </tr>
@@ -95,11 +82,11 @@
         
             <div class="off">
             <h1>Official Signature $ Stamp:</h1>
-            <p><h1>73865</h1></p>
+            <p><h1>{{data.extendedauthuser.exam_id}}</h1></p>
             </div>
             
             <div class="image">
-                <img src="{{obj.site_url}}/media/{{obj.stamp}}" height="200px"/>
+                <img src="{{obj.site_url}}/media/{{stamp.stamp}}" height="200px"/>
             </div>
         </div>
         {% endblock %}      

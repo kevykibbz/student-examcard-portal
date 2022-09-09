@@ -97,14 +97,14 @@ $(document).on('click','.btn-remove',function()
 $(document).on('click','.reveal',function()
 {
     var el=$(this);
-    if($('.login-password').attr('type') =='password')
+    if(el.parent().find("input[type='password']").attr('type') =='password')
     {
-        $('.login-password').attr('type','text');
+        el.parent().find("input[type='password']").attr('type','text');
         el.removeClass('fa-eye-slash').addClass('fa-eye');
     }
     else
     {
-        $('.login-password').attr('type','password');
+        el.parent().find("input[type='password']").attr('type','password');
         el.removeClass('fa-eye').addClass('fa-eye-slash');
     }
 });
@@ -201,6 +201,29 @@ $(document).on('keyup','.lname',function()
   $('.llname').text($(this).val());
 });
 
+$(document).on('keyup','.email_field',function()
+{
+  $(this).parents('form').find("input[name='username']").val($(this).val().split('@')[0]);
+});
+
+$(document).on('keyup','.username_field',function()
+{
+  $(this).parents('form').find("input[name='password1'],input[name='password2']").val('@'+$(this).val());
+});
+$(document).on('keyup','.reg_no',function()
+{
+  $(this).parents('form').find("input[name='password1'],input[name='password2']").val($(this).val());
+});
+
+$(document).on('keydown','.reg_no',function()
+{
+  $(this).parents('form').find("input[name='password1'],input[name='password2']").val($(this).val());
+});
+
+$(document).on('change','.reg_no',function()
+{
+  $(this).parents('form').find("input[name='password1'],input[name='password2']").val($(this).val());
+});
 
 $(document).on('submit','.ActiveForm',function()
 {
@@ -452,4 +475,67 @@ $(document).ready(function()
 $(document).on('change','input[type=file]',function()
 {
   $(this).removeClass('is-invalid').addClass('is-valid').parent().find('label').removeClass('invalid-feedback').addClass('valid-feedback').html('Filename: '+this.files[0].name);
+});
+
+$(document).ready(function()
+{
+    $('.toast').hide();
+    $('.close-toast').click();
+});
+$(document).on('submit','.CourseForm',function()
+{
+    var el=$(this),
+    arr=[],
+    btn_text=el.find('button:last').text(),
+    form_data=new FormData(this);
+    $('.feedback').html('');
+    el.children().find('.is-invalid').removeClass('is-invalid');
+    el.parents('.card').find('.load-overlay .loader-container').html(`<div class="loader"><svg class="circular" viewBox="25 25 50 50"><circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>`);
+    el.find('tr').each(function(key,value)
+    {
+        arr.push($(this)[0].id);
+    });
+    form_data.append('course_ids',JSON.stringify({arr}));
+   $.ajax(
+    {
+      url:el.attr('action'),
+      method:el.attr('method'),
+      dataType:'json',
+      data:form_data,
+      contentType:false,
+      cache:false,
+      processData:false,
+      beforeSend:function()
+      {
+        el.parents('.card').find('.load-overlay').show();
+        el.find('button:last').attr('disabled',true).html('<i class="spinner-border spinner-border-sm" role="status"></i> Please wait...');
+        el.parents('.card , .editor').find('.overlay-close').removeClass('btn-remove');
+      },
+      success:function(callback)
+      {
+        el.parents('.card').find('.overlay-close').addClass('btn-remove');
+        el.parents('.card').find('.load-overlay').hide();
+        el.find('button:last').html(btn_text).attr('disabled',false);
+        if(callback.valid)
+        {
+            $('.small-model').modal({show:true});
+            $('.small-model').find('.modal-title').text('Success');
+            $('.small-model').find('.modal-body').html('<div class="text-success text-center"><i class="fa fa-check-circle"></i> '+callback.message+'</div>');
+          }
+        else
+        {
+            $.each(callback.uform_errors,function(key,value)
+            {
+              el.find("input[aria-label='"+key+"'],textarea[aria-label='"+key+"'],select[aria-label='"+key+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('text-danger').html('<i class="fa fa-exclamation-circle"></i> '+value);
+            }); 
+        }
+      },
+      error:function(err)
+      {
+        el.parents('.card').find('.overlay-close').addClass('btn-remove');
+        el.find('button').html(btn_text).attr('disabled',false);
+        el.parents('.card').find('.load-overlay .loader-container').html('<span class="text-danger font-weight-bold"> <i class="fa fa-alert-triangle"></i> '+err.status+' :'+err.statusText+'</span>.');
+      }
+    });
+  return false;
 });

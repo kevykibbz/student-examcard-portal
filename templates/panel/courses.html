@@ -1,0 +1,84 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/panel">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">All Courses</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<a href="{% url 'new course' %}" class="float-btn btn btn-primary"><i class="fa fa-plus"></i></a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="content-heading">All Courses</h3>
+        </div>
+        <div class="col-md-10 col-12 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">View site Courses ({{acount|intcomma}})</h4>
+                    <div class="table-responsive table-results">
+                        <table class="table table-responsive-sm table-stripped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>School Name</th>
+                                    <th>Tution Fee</th>
+                                    <th>Exam stamp</th>
+                                    <th>Course Name</th>
+                                    <th>Date Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for course in courses %}
+                                <tr id="id_{{course.id}}">
+                                    <th>{{forloop.counter}}</th>
+                                    <td>{{course.school}}</td>
+                                    <td>Ksh:{{course.fee|intcomma|default:'0'}}</td>
+                                    <td>
+                                        <a class="image-preview" href="{{course.stamp.url}}" target="_blank">
+                                            <i class="fa fa-file"></i> {{course.stamp}}
+                                        </a>
+                                    </td>
+                                    <td>{{course.course_name}}</td>
+                                    <td>{{course.created_on}}</td>
+                                    <td>
+                                        <a data-toggle="tooltip" title="Edit {{course.course_name}}"  href="{% url 'edit course' id=course.id %}" class="btn btn-success input-rounded"><i class="fa fa-edit"></i> Edit</a>
+                                        <a data-host="{% url 'courses' %}" href="{% url 'delete course' id=course.id %}" data-toggle="tooltip" title="Delete {{course.course_name}}" class="del-data btn btn-danger input-rounded" type="button"><i class="fa fa-trash"></i> Delete</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center">
+                                        <p><i class="fa fa-excamation-circle"></i> No course(s) data found </p>
+                                    </td>
+                                </tr>
+                                {% endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination pagination-primary mt-4">
+                        {% if courses.has_previous %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'courses' %}?page={{courses.previous_page_number}}"><i class="fa fa-chevron-left"></i></a></li>
+                        {% endif %}
+                        {% if courses.has_next %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'courses' %}?page={{courses.next_page_number}}"><i class="fa fa-chevron-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

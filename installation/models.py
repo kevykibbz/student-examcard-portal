@@ -33,7 +33,6 @@ class SiteConstants(models.Model):
     linkedin=models.URLField(null=True,blank=True,max_length=250,default=env('LINKEDIN_LINK'))
     youtube=models.URLField(null=True,blank=True,max_length=250,default=env('YOUTUBE_LINK'))
     favicon=models.ImageField(null=True,blank=True,upload_to='logos/',default="logos/favicon.ico")
-    stamp=models.ImageField(null=True,blank=True,upload_to='stamp/',default="stamp/stamp.png")
     icon_180=models.ImageField(null=True,blank=True,upload_to='logos/',default="favicon-180x180.png")
     icon_32=models.ImageField(null=True,blank=True,upload_to='logos/',default="favicon-32x32.png")
     icon_16=models.ImageField(null=True,blank=True,upload_to='logos/',default="favicon-16x16.png")

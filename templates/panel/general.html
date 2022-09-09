@@ -62,16 +62,7 @@
                             <label for="id_site_url">Site URL</label>
                             <input name="site_url" value="{{request.scheme}}://{{request.get_host}}" aria-label="site_url" placeholder="eg example.com" type="url" class="form-control"  style="text-transform:lowercase;" readonly>
                             <div class="feedback"></div>
-                        </div>  
-                         <div class="form-group">               
-                            <label for="id_theme_color">Upload exam card stamp</label>
-                            <div class="custom-file" style="cursor:pointer">
-                                {{form1.stamp}}
-                                <label for="customFileInput1" class="custom-file-label">Browse files</label>
-                            </div>
-                            current: <a class="text-pimary" target="_blank" href="{{obj.favicon.url}}">{{obj.favicon}}</a>
-                            <div class="feedback"></div>
-                        </div>
+                        </div> 
                         <div class="form-group">               
                             <label for="id_theme_color">Site Theme Color</label>
                             <div class="example">

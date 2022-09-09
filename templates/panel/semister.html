@@ -1,0 +1,86 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% load humanize %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/panel">Home</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Semister outline</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<a href="{% url 'new semister' %}" class="float-btn btn btn-primary"><i class="fa fa-plus"></i></a>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="content-heading">Semister Outline</h3>
+        </div>
+        <div class="col-md-10 col-12 mx-auto">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">View semister outline ({{acount|intcomma}})</h4>
+                    <div class="table-responsive table-results">
+                        <table class="table table-responsive-sm table-stripped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Academic year of study</th>
+                                    <th>Year of Study</th>
+                                    <th>Sem of Study</th>
+                                    <th>School name</th>
+                                    <th>Course name</th>
+                                    <th>Course code</th>
+                                    <th>Course title</th>
+                                    <th>Date Created</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sem in sems %}
+                                <tr id="id_{{sem.id}}">
+                                    <th>{{forloop.counter}}</th>
+                                    <td>{{sem.academic_year|default:'Not set'}}</td>
+                                    <td>{{sem.year}}</td>
+                                    <td>{{sem.sem}}</td>
+                                    <td>{{sem.school}}</td>
+                                    <td>{{sem.course_name}}</td>
+                                    <td>{{sem.course_code}}</td>
+                                    <td>{{sem.course_title}}</td>
+                                    <td>{{sem.created_on}}</td>
+                                    <td>
+                                        <a data-toggle="tooltip" title="Edit {{sem.course_name}}"  href="{% url 'edit outline' id=sem.id %}" class="btn btn-success input-rounded"><i class="fa fa-edit"></i> Edit</a>
+                                        <a data-host="{% url 'semister' %}" href="{% url 'delete outline' id=sem.id %}" data-toggle="tooltip" title="Delete {{sem.course_name}}" class="del-data btn btn-danger input-rounded" type="button"><i class="fa fa-trash"></i> Delete</a>
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="10" class="text-center">
+                                        <p><i class="fa fa-excamation-circle"></i> No data found </p>
+                                    </td>
+                                </tr>
+                                {% endfor%}
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="pagination pagination-primary mt-4">
+                        {% if sems.has_previous %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'semister' %}?page={{sems.previous_page_number}}"><i class="fa fa-chevron-left"></i></a></li>
+                        {% endif %}
+                        {% if sems.has_next %}
+                        <li class="page-item active"><a class="page-link" href="{% url 'semister' %}?page={{sems.next_page_number}}"><i class="fa fa-chevron-right"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

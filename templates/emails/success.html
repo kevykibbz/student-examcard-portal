@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width"> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="x-apple-disable-message-reformatting"> 
-    <title>Success.We have received your digital {{category}} application successfully.</title>
+    <title>Success.Registration complete successfully</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
     <style>
         html,
@@ -121,10 +121,6 @@
     <!-- Progressive Enhancements : BEGIN -->
     <style>
 
-	    .primary
-        {
-	        background: #000;
-        }
         .bg_white
         {
             background: #ffffff;
@@ -147,17 +143,6 @@
         }
 
         /*BUTTON*/
-        .btn
-        {
-            padding: 10px 15px;
-            display: inline-block;
-        }
-        .btn.btn-primary
-        {
-            border-radius: 5px;
-            background: #000;
-            color: #ffffff;
-        }
         .btn.btn-white
         {
             border-radius: 5px;
@@ -342,12 +327,31 @@
         {
             color: rgba(0,0,0,1);
         }
-
-
-        @media screen and (max-width: 500px)
+        .btn 
         {
-
-
+            display: inline-block;
+            font-weight: 400;
+            color: #6c757d;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            background-color: transparent;
+            border: 1px solid transparent;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        .btn-primary 
+        {
+            color: #fff;
+            background-color: #51be78;
+            border-color: #51be78;
+        }
+        .input-rounded 
+        {
+            border-radius: 100px;
         }
     </style>
 </head>
@@ -366,7 +370,7 @@
           		<tr>
           			<td class="logo" style="text-align: center;">
 			            <a href="{{site_url}}">
-                            <img src="{% static 'manager/assets/images/logos/favicon.ico' %}" alt="{{site_name}} logo" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
+                            <img src="{{site_url}}/media/{{site_logo.url}}" alt="{{site_name}} logo" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
                         </a>
                         <h3 style="letter-spacing:1.8px;font-size:1.8em;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;color:#000"><b>{{site_name}}</b></h3>
 			        </td>
@@ -382,15 +386,17 @@
             			<div  style="padding: 0 2.5em;">
             				<h3>Dear {{user}}</h3>
             				<h3>Greetings from {{site_name}}!</h3>
-                            <p>Thank you for submitting Application for digital {{category}} categoty type. We are working on your application and we will respond to you very soon.</p>
-                            {% if otp %}
-                                <h3>OTP number<b>:{{otp}}</b>.</h3>
-                            {% endif %}
-                            {% if username and password %}
+                            <p>Kindly use the below login credentials to login to your student portal.Thank you.</p>
+                            {% if reg_no %}
                                 <hr>
                                 <h4><b>Logging Details</b></h4>
-                                <h5>Your temporary username is <b>:{{username}}</b>.</h5>
-                                <h5>Your temporary password is <b>:{{password}}</b>.</h5>
+                                <h5>Your username is <b>:{{username}}</b>.</h5>
+                                <h5>Your email address is <b>:{{email}}</b>.</h5>
+                                <h5>Your temporary password is <b>:@{{username}}{{reg_no}}</b>.</h5>
+                                <br>
+                                <div style="margin-top:15px;text-align:center">
+                                    <a class="btn btn-primary input-rounded" href="{% url 'dashboard' %}">Login Now</a>
+                                </div>
                             {% endif %}
                             <p>Best regards</p>
                             <p><a href="{{site_url}}">{{site_name}}</a></p>
@@ -412,7 +418,7 @@
                     <tr>
                       <td style="text-align: left; padding-right: 10px;">
                       	<h3 class="heading">About</h3>
-                      	<p>{{site_name}} offers instant personal loans, business loans, home loan, loan against property and many more at attractive interest rates &amp;amp; easy EMI options. Apply now!</p>
+                      	<p>{{description}}</p>
                       </td>
                     </tr>
                   </table>
@@ -437,11 +443,6 @@
                       	<h3 class="heading">Useful Links</h3>
                       	<ul>
                             <li><a href="{% url 'dashboard' %}">Home</a></li>
-                            <li><a href="{% url 'company' %}">Company</a></li>
-                            <li><a href="{% url 'personal loan' %}">Digital personal loan</a></li>
-                            <li><a href="{% url 'bussiness loan' %}">Digital bussiness loan</a></li>
-                            <li><a href="{% url 'terms and conditions' %}">Terms of Service</a></li>
-                            <li><a href="{% url 'privacy policy' %}">Privacy policy</a></li>
                             </ul>
                       </td>
                     </tr>

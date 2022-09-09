@@ -1,0 +1,94 @@
+{% extends 'panel/main.html' %}
+{% load static %}
+{% block body %}
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="breadcrumb-range-picker">
+            <span><i class="icon-calender"></i></span>
+            <span class="ml-1">{% now 'l' %}, {% now 'd m Y' %}</span>
+        </div>
+    </div>
+    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'courses' %}">All Courses</a></li>
+            <li class="breadcrumb-item active"><a href="javascript:void(0)">Add Course</a></li>
+        </ol>
+    </div>
+</div>
+<!-- row -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-12 mx-auto">
+            <div class="card position-relative">
+                <div class="load-overlay" style="display:none">
+                    <span class="overlay-close btn-remove" title="close overlay">
+                        <i class="fa fa-close"></i>
+                    </span>
+                    <div class="overlay">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="loader-container">
+                                <div class="loader">
+                                    <svg class="circular" viewBox="25 25 50 50">
+                                    <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                                    </svg>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Add Course</h4>
+                    <form action="" class="ActiveForm" method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>School</label>
+	                                <select name="school" id="single_select" class="form-control input-rounded">
+	                                   	{% for school in schools %}
+	                                   	<option value="{{school.school}}">{{school.school}}</option>
+	                                   	{% empty %}
+	                                   	<option value="" disabled="" selected="">No school found</option>
+	                                   	{% endfor %}
+	                                </select>
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>                            
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Student Course name</label>
+                                    {{form.course_name}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label>Tution fee</label>
+                                    {{form.fee}}
+                                    <div class="feedback"></div>
+                                </div>
+                            </div>
+                           <div class="col-md-6 col-12">
+	                           	<div class="form-group">               
+		                            <label for="id_theme_color">Upload exam card stamp</label>
+		                            <div class="custom-file" style="cursor:pointer">
+		                                {{form.stamp}}
+		                                <label for="customFileInput1" class="custom-file-label">Browse files</label>
+		                            </div>
+	                            	<div class="feedback"></div>
+	                        	</div>
+                           </div>
+                            <div class="text-center mt-3 col-12">
+                               <button class="btn btn-primary input-rounded">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

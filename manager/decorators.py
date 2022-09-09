@@ -19,7 +19,7 @@ def allowed_users(allowed_roles=[]):
                 return view_func(request, *args , **kwrags)
             else:
                 obj=SiteConstants.objects.all()[0]
-                return render(request,'manager/403.html',{'title':'Access Forbidden','obj':obj})
+                return render(request,'panel/403.html',{'title':'Access Forbidden','obj':obj})
         return wrapper_func
     return decorator
 

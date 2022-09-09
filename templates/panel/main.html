@@ -57,10 +57,12 @@
     <link href="{% static 'panel/assets/plugins/jquery-asColorPicker/css/asColorPicker.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'manager/assets/css/custom.css' %}" />
     <style type="text/css">
-    .btn,
-    .form-control
-    {
-        padding:1.2rem  !important;
+   .reveal {
+        position: absolute;
+        top: 40px !important;
+        right:28px !important;
+        cursor: pointer;
+        transition: all;
     }
     </style>
 </head>
@@ -218,8 +220,22 @@
                         <a class="has-arrow" href="/dashboard" aria-expanded="false">
                             <i class="fa fa-home"></i><span class="nav-text">Dashboard</span>
                         </a>
-                    </li>
-                    
+                    </li> 
+                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-bars"></i><span class="nav-text">Exam</span></a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a class="has-arrow" href="{% url 'registered courses' %}" aria-expanded="false">
+                                    <i class="fa fa-book"></i><span class="nav-text">Registered courses</span>
+                                </a>
+                            </li> 
+                            <li>
+                                <a class="has-arrow" href="{% url 'prepare exam card' %}" aria-expanded="false">
+                                    <i class="fa fa-book"></i><span class="nav-text">Exam Card</span>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </li> 
                     <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i class="fa fa-bars"></i><span class="nav-text">Layouts</span></a>
                         <ul aria-expanded="false">
                             <li>
@@ -253,6 +269,25 @@
                             <li>
                                 <a href="{% url 'general' %}">General Site Settings</a>
                             </li> 
+                        </ul>
+                    </li>   
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-users"></i><span class="nav-text">Students</span>
+                        </a>
+                         <ul aria-expanded="false">
+                            <li>
+                                <a href="{% url 'students' %}">All student</a>
+                            </li>  
+                            <li>
+                                <a href="{% url 'schools' %}">All Schools</a>
+                            </li> 
+                            <li>
+                                <a href="{% url 'courses' %}">All Courses</a>
+                            </li> 
+                             <li>
+                                <a href="{% url 'semister' %}">Semister Outline</a>
+                            </li>
                         </ul>
                     </li> 
                     {% endif %}
@@ -633,34 +668,7 @@
     <script src="{% static 'panel/assets/js/dashboard/dashboard-1.js' %}"></script>
     <script src="{% static 'manager/assets/js/custom.js' %}"></script> 
     <script>
-        var current='';
-        $(document).on('click','.penwrapper',function()
-        {
-            var el=$(this),
-            name='';
-            if(el.parent().find('img').length)
-            {
-                name=el.parent().find('img').data('name');
-            }
-            else
-            {
-                name=el.parent().find('.content').data('name');
-                current=el;
-            }
-            $('.form-area').find("input,textarea").parent().hide();
-            $('.form-area').find("input[name='"+name+"'],textarea[name='"+name+"']").parent().show();
-            $('.target').html($('.form-area').html()).find('form').show().find("input[name='"+name+"'],textarea[name='"+name+"']").val($.trim(el.parent().find('.content').text())).addClass('editor-pallate');
-            $('.edit-modal').modal({show:true});
-        });
-        $(document).on('keyup','.editor-pallate',function()
-        {
-            current.parent().find('.content').text($(this).val());
-        });
-        $(document).ready(function()
-        {
-            $('.toast').hide();
-            $('.close-toast').click();
-        });
+        
     </script>  
 </body>
 </html>
