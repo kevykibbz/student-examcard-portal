@@ -57,7 +57,7 @@
                                     <td>Ksh:{{student.extendedauthuser.fee_balance|sub:student.extendedauthuser.paid_fee|intcomma}}</td>
                                     <td>Ksh:{{student.extendedauthuser.fee_balance|intcomma}}</td>
                                     <td>
-                                    	{% if student.is_cleared %}
+                                    	{% if student.extendedauthuser.is_cleared %}
                                     	<span class="badge badge-success input-rounded">Has cleared</span>
                                     	{% else %}
                                     	<span class="badge badge-danger input-rounded">Has not cleared</span>
