@@ -53,6 +53,13 @@
                         <li><strong class="text-dark mr-4">Total billed fee</strong> <span>{{data.extendedauthuser.fee_balance|intcomma}}</span></li>
                         <li><strong class="text-dark mr-4">Total Paid fee</strong> <span>{{data.extendedauthuser.paid_fee|intcomma}}</span></li>
                         <li><strong class="text-dark mr-4">Outstanding fee</strong> <span>{{data.extendedauthuser.fee_balance|sub:data.extendedauthuser.paid_fee|intcomma}}</span></li>
+                        <li><strong class="text-dark mr-4">Percentage paid</strong>
+                            {% if percent <= 50 %}
+                            <span class="badge badge-danger" >{{percent}}%</span>
+                            {% else %}
+                            <span class="badge badge-success" >{{percent}}%</span>
+                            {% endif %}
+                        </li>
                     </ul>
                 </div>
                 <div class="card-footer border-0 bg-white pb-4">
@@ -151,7 +158,7 @@
                                     <div class="col-md-6 col-12">
 		                                <div class="form-group">
 		                                    <label>Username</label>
-		                                    {{form.username}}
+                                            <input type="text" class="form-control input-rounded" value="{{data.username}}" readonly>
 		                                    <div class="feedback"></div>
 		                                </div>
 		                            </div>

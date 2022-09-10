@@ -89,10 +89,14 @@
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    {{form.username}}
+                                    {% if not edit %}
+                                        {{form.username}}
+                                    {% else %}
+                                        <input type="text" class="form-control input-rounded" value="{{data.username}}" readonly>
+                                    {% endif %}
                                     <div class="feedback"></div>
                                 </div>
-                            </div>  
+                            </div> 
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label>Reg No</label>
@@ -119,9 +123,13 @@
                                     <label>School of</label>
                                     <select name="school" id="single_select" class="form-control input-rounded">
 	                                   	{% for school in schools %}
-	                                   	<option value="{{school.school}}">{{school.school}}</option>
-	                                   	{% empty %}
-	                                   	<option value="" disabled="" selected="">No school found</option>
+                                            {% if school.school == student.extendedauthuser.school %}
+                                                <option value="{{student.extendedauthuser.school}}" selected>{{student.extendedauthuser.school}}</option>
+                                            {% else %}
+                                                <option value="{{school.school}}">{{school.school}}</option>
+                                            {% endif %}
+    	                               {% empty %}
+    	                                   	<option value="" disabled="" selected="">No school found</option>
 	                                   	{% endfor %}
 	                                </select>
                                     <div class="feedback"></div>
@@ -132,9 +140,13 @@
                                     <label>Course</label>
                                     <select name="course_name" class="form-control input-rounded">
 	                                   	{% for course in courses %}
-	                                   	<option value="{{course.course_name}}">{{course.course_name}}</option>
-	                                   	{% empty %}
-	                                   	<option value="" disabled="" selected="">No ccourse name found</option>
+                                            {% if course.course_name == student.extendedauthuser.course_name %}
+                                                <option value="{{student.extendedauthuser.course_name }}" selected>{{student.extendedauthuser.course_name }}</option>
+                                            {% else %}
+    	                                   	   <option value="{{course.course_name}}">{{course.course_name}}</option>
+                                            {% endif %}
+    	                               {% empty %}
+    	                                   	<option value="" disabled="" selected="">No ccourse name found</option>
 	                                   	{% endfor %}
 	                                </select>
                                     <div class="feedback"></div>
@@ -165,7 +177,7 @@
                                 </div>
                             </div>
                             {% endif %}
-                            <div class="form-group ml-3 mt-3 mb-5">
+                            <div class="form-group ml-3" style="margin-top:35px">
                                 {{eform.is_cleared}}
                                 <label class="label-checkbox ml-2 mb-0" for="checkbox1">Clear student of fee arrears</label>
                                 <div class="feedback ml-4"></div>

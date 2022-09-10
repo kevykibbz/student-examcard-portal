@@ -189,6 +189,7 @@ class ProfileView(View):
         eform=CurrentExtUserProfileChangeForm(request.POST or None,instance=user.extendedauthuser)
         messages=ContactModel.objects.filter(is_read=False).order_by("-id")[:3]
         count=ContactModel.objects.filter(is_read=False).order_by("-id").count()
+        percent=int(request.user.extendedauthuser.paid_fee)/int(request.user.extendedauthuser.fee_balance)*100
         passform=UserPasswordChangeForm()
         profileform=ProfilePicForm()
         data={
@@ -201,7 +202,8 @@ class ProfileView(View):
             'messages':messages,
             'editor':user,
             'passform':passform,
-            'profileform':profileform
+            'profileform':profileform,
+            'percent':percent,
         }
         return render(request,'panel/profile.html',context=data)
     def post(self,request,username,*args ,**kwargs):
@@ -358,6 +360,7 @@ class newStudent(View):
             if uform.is_valid() and  eform.is_valid():
                 userme=uform.save(commit=False)
                 userme.is_active = True
+                userme.password=make_password('@'+uform.cleaned_data.get('username',None)+eform.cleaned_data.get('reg_no',None))
                 userme.save()
                 extended=eform.save(commit=False)
                 courses=CourseModel.objects.get(course_name=eform.cleaned_data.get('course_name',None))
@@ -692,7 +695,7 @@ class editStudent(View):
         schools=SchoolModel.objects.all().order_by("-id")
         courses=CourseModel.objects.all().order_by("-id")
         form=CurrentLoggedInUserProfileChangeForm(instance=user)
-        eform=EProfileForm(instance=user.extendedauthuser)        
+        eform=EProfileForm(instance=user.extendedauthuser)  
         data={
             'title':f'Edit student | {user.get_full_name()}',
             'obj':obj,
@@ -712,7 +715,6 @@ class editStudent(View):
         form=CurrentLoggedInUserProfileChangeForm(request.POST or None , instance=user)
         eform=EProfileForm(request.POST,request.FILES or None ,instance=user.extendedauthuser)             
         if form.is_valid() and eform.is_valid():
-            print('form data:',request.POST)
             form.save()
             usr=eform.save(commit=False)
             if 'is_cleared' in request.POST:
@@ -779,8 +781,20 @@ class getCourses(View):
                     obj=ExamModel.objects.create(user_id=request.user.pk,academic_year=courses.academic_year,school=request.user.extendedauthuser.school,year=courses.year,sem=courses.sem,course_code=courses.course_code,course_name=courses.course_name,course_title=courses.course_title)
                     obj.save()
                 return JsonResponse({'valid':True,'message':'Courses registered successfuly.'},content_type='application/json')
-            form_errors={"nominal_roll": ["You have already registered the courses."]}
-            return JsonResponse({'valid':False,'uform_errors':form_errors},content_type='application/json')
+            else:
+                usr=ExamModel.objects.filter(user_id=request.user.pk).first()
+                for id in ids['arr']:
+                    courses=SemModel.objects.get(id=id)
+                    usr.user_id=request.user.pk
+                    usr.academic_year=courses.academic_year
+                    usr.year=courses.year
+                    usr.sem=courses.sem
+                    usr.course_code=courses.course_code
+                    usr.course_name=courses.course_name
+                    usr.course_title=courses.course_title
+                    usr.school=request.user.extendedauthuser.school
+                    usr.save()
+                return JsonResponse({'valid':True,'message':'Courses registered successfuly.'},content_type='application/json')
         else:
             return JsonResponse({'valid':False,'uform_errors':form.errors},content_type='application/json')
 
