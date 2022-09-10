@@ -363,6 +363,10 @@ class newStudent(View):
                 courses=CourseModel.objects.get(course_name=eform.cleaned_data.get('course_name',None))
                 extended.user=userme
                 extended.role='Student'
+                if 'is_cleared' in request.POST:
+                    extended.is_cleared=True
+                else:
+                    extended.is_cleared=False
                 extended.exam_id=generate_id()
                 extended.fee_balance=courses.fee
                 extended.initials=uform.cleaned_data.get('first_name')[0].upper()+uform.cleaned_data.get('last_name')[0].upper()
@@ -708,8 +712,14 @@ class editStudent(View):
         form=CurrentLoggedInUserProfileChangeForm(request.POST or None , instance=user)
         eform=EProfileForm(request.POST,request.FILES or None ,instance=user.extendedauthuser)             
         if form.is_valid() and eform.is_valid():
+            print('form data:',request.POST)
             form.save()
-            eform.save()
+            usr=eform.save(commit=False)
+            if 'is_cleared' in request.POST:
+                usr.is_cleared=True
+            else:
+                usr.is_cleared=False
+            usr.save()
             return JsonResponse({'valid':True,'message':'Student updated successfuly.'},content_type='application/json')
         else:
             return JsonResponse({'valid':False,'uform_errors':form.errors,'eform_errors':eform.errors},content_type='application/json')

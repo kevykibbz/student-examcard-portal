@@ -42,7 +42,7 @@
                                 <form class="loginForm" action="" method="post" novalidate>
                                     {% csrf_token %}
                                     <div class="form-group mb-4">
-                                        <input name="username" type="text" class="form-control input-rounded bg-transparent" placeholder="Username or Email Address">
+                                        <input style="text-transform:lowercase" name="username" type="text" class="form-control input-rounded bg-transparent" placeholder="Username or Email Address">
                                         <div class="feedback"></div>
                                     </div>
                                     <div class="form-group mb-4 position-relative">

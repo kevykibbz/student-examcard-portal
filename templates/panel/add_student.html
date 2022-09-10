@@ -147,13 +147,6 @@
                                     <div class="feedback phoner"></div>
                                 </div>
                             </div>
-                            {% if edit %}
-                            <div class="form-group ml-3 mt-3 mb-5">
-                                {{eform.is_cleared}}
-                                <label class="label-checkbox ml-2 mb-0" for="checkbox1">Clear student of fee arrears</label>
-                                <div class="feedback ml-4"></div>
-                            </div>
-                            {% endif %}
                             {% if not edit %}
                             <div class="col-md-6 col-12  position-relative mt-3">
                                 <div class="form-group">
@@ -172,6 +165,11 @@
                                 </div>
                             </div>
                             {% endif %}
+                            <div class="form-group ml-3 mt-3 mb-5">
+                                {{eform.is_cleared}}
+                                <label class="label-checkbox ml-2 mb-0" for="checkbox1">Clear student of fee arrears</label>
+                                <div class="feedback ml-4"></div>
+                            </div>
                             <div class="text-center mt-3 col-12">
                                <button class="btn btn-primary input-rounded">{% if not edit %} Submit {% else %} Update {% endif %}</button>
                             </div>

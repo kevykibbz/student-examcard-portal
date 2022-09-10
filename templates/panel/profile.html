@@ -1,5 +1,7 @@
 {% extends 'panel/main.html' %}
 {% load static %}
+{% load humanize %}
+{% load mathfilters %}
 {% block body %}
 <div class="row page-titles mx-0">
     <div class="col-sm-6 p-md-0">
@@ -45,6 +47,12 @@
                     <ul class="card-profile__info">
                         <li class="mb-1"><strong class="text-dark mr-4">Mobile</strong> <span>{{data.extendedauthuser.phone}}</span></li>
                         <li><strong class="text-dark mr-4">Email</strong> <span>{{data.email}}</span></li>
+                        <li><strong class="text-dark mr-4">Reg No</strong> <span>{{data.extendedauthuser.reg_no}}</span></li>
+                        <li><strong class="text-dark mr-4">Course name</strong> <span>{{data.extendedauthuser.course_name}}</span></li>
+                        <li><strong class="text-dark mr-4">Academic Year</strong> <span>{{data.extendedauthuser.academic_year}}</span></li>
+                        <li><strong class="text-dark mr-4">Total billed fee</strong> <span>{{data.extendedauthuser.fee_balance|intcomma}}</span></li>
+                        <li><strong class="text-dark mr-4">Total Paid fee</strong> <span>{{data.extendedauthuser.paid_fee|intcomma}}</span></li>
+                        <li><strong class="text-dark mr-4">Outstanding fee</strong> <span>{{data.extendedauthuser.fee_balance|sub:data.extendedauthuser.paid_fee|intcomma}}</span></li>
                     </ul>
                 </div>
                 <div class="card-footer border-0 bg-white pb-4">

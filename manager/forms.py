@@ -2,6 +2,7 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from .models import *
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.forms import PasswordResetForm, UserCreationForm,UserChangeForm,PasswordChangeForm
 from django.contrib.auth.forms import User
 from phonenumber_field.formfields import PhoneNumberField
@@ -98,51 +99,6 @@ class UserPasswordChangeForm(UserCreationForm):
         else:
            return oldpassword 
 
-#profileForm
-class CurrentLoggedInUserProfileChangeForm(UserChangeForm):
-    first_name=forms.CharField(widget=forms.TextInput(attrs={'style':'text-transform:lowercase;','class':'form-control input-rounded'}),required=False)
-    last_name=forms.CharField(widget=forms.TextInput(attrs={'style':'text-transform:lowercase;','class':'form-control input-rounded','aria-label':'last_name'}),error_messages={'required':'Last name is required'})
-    username=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded','placeholder':'Username ','aria-label':'username'}),error_messages={'required':'Username is required'})
-    email=forms.EmailField(widget=forms.EmailInput(attrs={'style':'text-transform:lowercase;','class':'form-control input-rounded','aria-label':'email'}),error_messages={'required':'Email address is required'})
-    is_active=forms.BooleanField(widget=forms.CheckboxInput(attrs={'aria-label':'is_active','id':'checkbox1'}),required=False)
-    class Meta:
-        model=User
-        fields=['first_name','last_name','email','is_active','username',]
-
-
-    def clean_first_name(self):
-        first_name=self.cleaned_data['first_name']
-        if not str(first_name).isalpha():
-                raise forms.ValidationError('only characters are allowed.')
-        return first_name
-    
-    def clean_last_name(self):
-        last_name=self.cleaned_data['last_name']
-        if not str(last_name).isalpha():
-                raise forms.ValidationError('only characters are allowed.')
-        return last_name
-
-    def clean_email(self):
-        email=self.cleaned_data['email']
-        if email != self.instance.email:
-            if User.objects.filter(email=email).exists():
-                raise forms.ValidationError('A user with this email already exists.')
-            try:
-                validate_email(email)
-            except ValidationError as e:
-                raise forms.ValidationError('Invalid email address.')
-            return email
-        else:
-           return email
-
-    def clean_username(self):
-        username=self.cleaned_data['username']
-        if email != self.instance.email:
-            if User.objects.filter(username=username).exists():
-                raise forms.ValidationError('A user with this username already exists')
-            return username
-        return username
-
 
 #profileForm
 class CurrentExtUserProfileChangeForm(forms.ModelForm):
@@ -211,14 +167,13 @@ class users_registerForm(UserCreationForm):
         return username
 
 #profileForm
-class CurrentLoggedInUserProfileChangeForm(UserChangeForm):
-    first_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded'}),required=False)
+class CurrentLoggedInUserProfileChangeForm(ModelForm):
+    first_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded'}),error_messages={'required':'First name is required'})
     last_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded','aria-label':'last_name'}),error_messages={'required':'Last name is required'})
-    username=forms.CharField(widget=forms.TextInput(attrs={'class':'username_field form-control text-capitalize input-rounded','placeholder':'Username ','aria-label':'username'}),error_messages={'required':'Username is required'})
     email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control text-capitalize input-rounded','aria-label':'email'}),error_messages={'required':'Email address is required'})
     class Meta:
         model=User
-        fields=['first_name','last_name','email','is_active','username',]
+        fields=['first_name','last_name','email',]
 
 
     def clean_first_name(self):
@@ -258,7 +213,7 @@ class CurrentLoggedInUserProfileChangeForm(UserChangeForm):
 class EProfileForm(forms.ModelForm):
     is_cleared=forms.BooleanField(widget=forms.CheckboxInput(attrs={'aria-label':'is_cleared','id':'checkbox1'}),required=False)
     phone=PhoneNumberField(widget=PhoneNumberPrefixWidget(attrs={'class':'form-control input-rounded','type':'tel','aria-label':'phone','placeholder':'Phone'}),error_messages={'required':'Phone number is required'})
-    paid_fee=forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control input-rounded text-capitalize','placeholder':'Paid Fee','aria-label':'paid_fee'}),required=False)
+    paid_fee=forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control input-rounded text-capitalize','placeholder':'Paid Fee','aria-label':'paid_fee'}),initial=0,required=False)
     reg_no=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded reg_no text-capitalize','placeholder':'Reg No eg EC/10/18 ','aria-label':'reg_no'}),error_messages={'required':'Registration number is required'})
     academic_year=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded text-capitalize','placeholder':'Academic Year eg 18/19','aria-label':'academic_year'}),error_messages={'required':'Academic year is required'})
     school=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded  text-capitalize','placeholder':'School of ','aria-label':'school'}),error_messages={'required':'School name is required'})
@@ -270,7 +225,7 @@ class EProfileForm(forms.ModelForm):
                                 )
     class Meta:
         model=ExtendedAuthUser
-        fields=['phone','profile_pic','reg_no','school','course_name','paid_fee','academic_year','is_cleared',]
+        fields=['phone','profile_pic','reg_no','school','course_name','paid_fee','academic_year',]
 
     def clean_reg_no(self):
         reg_no=self.cleaned_data['reg_no']
