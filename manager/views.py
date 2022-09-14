@@ -772,29 +772,32 @@ class getCourses(View):
         form=NominalRollForm(request.POST or None , instance=request.user.extendedauthuser)
         if form.is_valid():
             ids=json.loads(request.POST.get('course_ids',None))
-            usr=form.save(commit=False)
-            usr.registered_courses=ids
-            usr.save()
-            if not ExamModel.objects.filter(user_id=request.user.pk).exists():
-                for id in ids['arr']:
-                    courses=SemModel.objects.get(id=id)
-                    obj=ExamModel.objects.create(user_id=request.user.pk,academic_year=courses.academic_year,school=request.user.extendedauthuser.school,year=courses.year,sem=courses.sem,course_code=courses.course_code,course_name=courses.course_name,course_title=courses.course_title)
-                    obj.save()
-                return JsonResponse({'valid':True,'message':'Courses registered successfuly.'},content_type='application/json')
+            if len(ids['arr']) > 1:
+                usr=form.save(commit=False)
+                usr.registered_courses=ids
+                usr.save()
+                if not ExamModel.objects.filter(user_id=request.user.pk).exists():
+                    for id in ids['arr']:
+                        courses=SemModel.objects.get(id=id)
+                        obj=ExamModel.objects.create(user_id=request.user.pk,academic_year=courses.academic_year,school=request.user.extendedauthuser.school,year=courses.year,sem=courses.sem,course_code=courses.course_code,course_name=courses.course_name,course_title=courses.course_title)
+                        obj.save()
+                    return JsonResponse({'valid':True,'message':'Courses registered successfuly.'},content_type='application/json')
+                else:
+                    usr=ExamModel.objects.filter(user_id=request.user.pk).first()
+                    for id in ids['arr']:
+                        courses=SemModel.objects.get(id=id)
+                        usr.user_id=request.user.pk
+                        usr.academic_year=courses.academic_year
+                        usr.year=courses.year
+                        usr.sem=courses.sem
+                        usr.course_code=courses.course_code
+                        usr.course_name=courses.course_name
+                        usr.course_title=courses.course_title
+                        usr.school=request.user.extendedauthuser.school
+                        usr.save()
+                    return JsonResponse({'valid':True,'message':'Courses registered successfuly.'},content_type='application/json')
             else:
-                usr=ExamModel.objects.filter(user_id=request.user.pk).first()
-                for id in ids['arr']:
-                    courses=SemModel.objects.get(id=id)
-                    usr.user_id=request.user.pk
-                    usr.academic_year=courses.academic_year
-                    usr.year=courses.year
-                    usr.sem=courses.sem
-                    usr.course_code=courses.course_code
-                    usr.course_name=courses.course_name
-                    usr.course_title=courses.course_title
-                    usr.school=request.user.extendedauthuser.school
-                    usr.save()
-                return JsonResponse({'valid':True,'message':'Courses registered successfuly.'},content_type='application/json')
+                return JsonResponse({'courses':True,'message':'No courses to register found.'},content_type="application/json")
         else:
             return JsonResponse({'valid':False,'uform_errors':form.errors},content_type='application/json')
 

@@ -282,7 +282,7 @@ $(document).on('submit','.ActiveForm',function()
             $.each(callback.eform_errors,function(key,value)
             {
               el.find("input[aria-label='"+key+"'],textarea[aria-label='"+key+"'],select[aria-label='"+key+"']").addClass('is-invalid').parents('.form-group').find('.feedback').addClass('invalid-feedback').html('<i class="fa fa-exclamation-circle"></i> '+value);
-            });
+            }); 
         }
       },
       error:function(err)
@@ -516,6 +516,11 @@ $(document).on('submit','.CourseForm',function()
         el.parents('.card').find('.overlay-close').addClass('btn-remove');
         el.parents('.card').find('.load-overlay').hide();
         el.find('button:last').html(btn_text).attr('disabled',false);
+        if(callback.courses)
+        {
+          el.parents('.card,.editor').find('.load-overlay').show();
+          el.parents('.card,.editor').find('.load-overlay .loader-container').html('<span class="text-danger font-weight-bold"> <i class="fa fa-exclamation-circle"></i> '+callback.message+'</span>.');
+        }
         if(callback.valid)
         {
             $('.small-model').modal({show:true});
