@@ -171,9 +171,10 @@ class CurrentLoggedInUserProfileChangeForm(ModelForm):
     first_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded'}),error_messages={'required':'First name is required'})
     last_name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-rounded','aria-label':'last_name'}),error_messages={'required':'Last name is required'})
     email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control text-capitalize input-rounded','aria-label':'email'}),error_messages={'required':'Email address is required'})
+    is_active=forms.BooleanField(widget=forms.CheckboxInput(attrs={'aria-label':'is_active','id':'checkbox1'}),required=False)
     class Meta:
         model=User
-        fields=['first_name','last_name','email',]
+        fields=['first_name','last_name','email','is_active',]
 
 
     def clean_first_name(self):

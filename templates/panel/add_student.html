@@ -182,6 +182,23 @@
                                 <label class="label-checkbox ml-2 mb-0" for="checkbox1">Clear student of fee arrears</label>
                                 <div class="feedback ml-4"></div>
                             </div>
+                            {% if data.is_superuser %}
+                                <div class="mt-2 col-12">
+                                    <div class="form-group">
+                                        {{form.is_active}}
+                                        <label><strong> Enable/Disable student</strong></label>
+                                        <div class="feedback"></div>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="mt-2 col-12 d-none">
+                                    <div class="form-group">
+                                        {{form.is_active}}
+                                        <label><strong> Enable/Disable student</strong></label>
+                                        <div class="feedback"></div>
+                                    </div>
+                                </div>
+                            {% endif %}
                             <div class="text-center mt-3 col-12">
                                <button class="btn btn-primary input-rounded">{% if not edit %} Submit {% else %} Update {% endif %}</button>
                             </div>

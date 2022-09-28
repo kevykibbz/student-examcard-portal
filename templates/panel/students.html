@@ -36,6 +36,7 @@
                                     <th>Name</th>
                                     <th>Adm No</th>
                                     <th>Academic year</th>
+                                    <th>School Of</th>
                                     <th>Course Name</th>
                                     <th>Paid Fee</th>
                                     <th>Fee Balance</th>
@@ -52,6 +53,7 @@
                                     <td>{{student.get_full_name}}</td>
                                     <td>{{student.extendedauthuser.reg_no}}</td>
                                     <td>{{student.extendedauthuser.academic_year}}</td>
+                                    <td>{{student.extendedauthuser.school}}</td>
                                     <td>{{student.extendedauthuser.course_name}}</td>
                                     <td>Ksh:{{student.extendedauthuser.paid_fee|intcomma}}</td>
                                     <td>Ksh:{{student.extendedauthuser.fee_balance|sub:student.extendedauthuser.paid_fee|intcomma}}</td>
